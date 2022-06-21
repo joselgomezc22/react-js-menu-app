@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { Card, CardImg, CardText, CardBody, CardTitle , List } from 'reactstrap';
-
+import { Card, CardImg, CardText, CardBody, CardTitle  , Breadcrumb , BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
   
     function RenderDish({selectedDish}){
         return(
@@ -16,9 +16,11 @@ import { Card, CardImg, CardText, CardBody, CardTitle , List } from 'reactstrap'
     }
 
        const DishDetail = (props)=> {
+        const commentsArray = props.comments;
         const selectedDish = props.selecteddish;
-        if (selectedDish != null ){
-            const coments = selectedDish.comments.map((comment) => {
+        if (commentsArray != null ){
+            console.log(commentsArray);
+            const coments = commentsArray.map((comment) => {
                 if (comment == null ){
     
                     return (
@@ -42,16 +44,26 @@ import { Card, CardImg, CardText, CardBody, CardTitle , List } from 'reactstrap'
                 });
 
             return (
+                <div className="container">
+                <div className="row">
+                <Breadcrumb>
+
+                <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                <BreadcrumbItem active>{selectedDish.name}</BreadcrumbItem>
+                </Breadcrumb>  
+                        
+                </div>
                 <div className="row">
                     <div  className="col-12 col-md-5 m-1">
                         <RenderDish selectedDish={selectedDish} />
                     </div>
                     <div  className="col-12 col-md-5 m-1">
                         <h2 >Comments</h2>
-                        <List type="unstyled">
+                        <div type="unstyled">
                             {coments}
-                        </List>
+                        </div>
                     </div>
+                </div>
                 </div>
                 
             );
